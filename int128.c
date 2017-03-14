@@ -108,3 +108,27 @@ void int128_sub (Int128 *res, Int128 *v1, Int128 *v2)
 		}
 	}
 }
+
+/* Shift para esquerda */
+void int128_shl (Int128 *res, Int128 *v, int n)
+{
+	int i; 
+	long x = 1; //Variável para realizar operação de shift
+	
+	for (i=0; i<n; i++) //Realizando shift de um em um até o valor desejado n.
+	{
+		if ((v->low & x<<63)==0) //Verifica se o bit mais à esquerda de v->low está desligado
+		{
+			v->low <<= 1; //Se estiver realiza o shift à esquerda somente
+			v->high <<= 1;
+		}
+		else //Caso contrário realiza o shift à esquerda e passa o bit aceso para o v->high
+		{
+			v->low <<= 1; //Realiza shift à esquerda na parte baixa
+			v->high <<=1; //Realiza shift à esquerda na parte alta
+			v->high |= 0x01; //Realiza um "ou" lógico (|) para acender primeiro bit em v->high
+		}
+	}
+	res->low = v->low; //Atribui o resultado do shift em Int128
+	res->high = v->high;
+}
