@@ -132,3 +132,48 @@ void int128_shl (Int128 *res, Int128 *v, int n)
 	res->low = v->low; //Atribui o resultado do shift em Int128
 	res->high = v->high;
 }
+
+/* Shift para direita (aritmetico) */
+void int128_shr (Int128 *res, Int128 *v, int n)
+{
+	int i;
+	long temp; //Váriavel para realizar operação de NOT (~)
+	long x = 1; //Váriavel utilizada para realizar shift
+
+	for (i=0; i<n; i++) //Realizando shift à direita de um em um até valor desejado
+	{
+		if ((v->high & 0x1)==0) //Verifica se bit mais à direita da parte alta está desligado
+		{
+			v->low >>= 1; //Realiza shift à direita na parte baixa
+			if ((v->low & x<<63)!=0) //Verifica se bit mais à esquerda está ligado após shift
+			{
+				temp = ~v->low; //Guarda em temp o complemento de v->low
+				temp |= (x<<63); //Liga o bit mais à esquerda do complemento 
+				v->low = ~temp; //Dá um NOT para desligar o bit mais à esquerda e guarda em v->low
+			}
+		}
+		else //Caso o bit mais à direita da parte alta esteja ligado 
+		{
+			v->low >>= 1; //Realiza shift à direita na parte baixa
+			v->low |= (x<<63); //Faz um OR (|) com a mascara para manter o bit ligado após shift
+		}
+		
+		if ((v->high & x<<63)==0) //Verifica se bit mais à esquerda da parte alta está desligado
+		{
+			v->high >>= 1; //Realiza shift à direita na parte alta
+			if ((v->high & x<<63)!=0) //Verifica se bit mais à esquerda está ligado após shift
+			{
+				temp = ~v->high; //Guarda em temp o complemento de v->high
+				temp |= (x<<63); //Liga o bit mais à esquerda do complemento
+				v->high = ~temp; //Dá um NOT para desligar o bit mais à esquerda e guarda em v->high
+			}
+		}
+		else //Caso o bit mais à esquerda da parte alta esteja ligado
+		{
+			v->high >>=1; //Realiza shift à direita na parte alta
+			v->high |= (x<<63); //Faz um OR (|) com a mascara para manter o bit ligado após shift
+		}
+	}
+	res->low = v->low;  //Guarda então o resultado da operação em res->low
+	res->high = v->high; //Guarda então o resultado da operação em res->high
+}
