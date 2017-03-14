@@ -1,0 +1,122 @@
+				****** REPRESENTACAO DE INTEIRO DE 128 BITS ******
+
+
+>>>>>>>>>>>>>>>>>>>>>>>FUNÇÃO DE ATRIBUIÇÃO (int128_attr)<<<<<<<<<<<<<<<<<<<<
+
+Foram feitos diversos testes sobre a função e todos os testes obtiveram total
+sucesso, sem a ocorrência de falha!
+
+Para meios de testar a função de atribuição foram utilizados os seguintes
+valores para o parâmetro (long l):
+
+Long l ->  0xFFCA7958765234AB - 0xFFFFFFFFFFFFFFFF - 0x0 - 0x1 - 0x2 - 0x3
+Long l ->  0xF000000000000000 - 0xF - 0x8000000000000000 - 0x7FFFFFFFFFFFFFFF
+
+
+
+>>>>>>>>>>>>>>>>>>>>>>>FUNÇÃO DE ADIÇÃO (int128_add)<<<<<<<<<<<<<<<<<<<<<<<<<
+
+Foram feitos diversos testes sobre a função e todos os testes obtiveram total
+sucesso, sem a ocorrência de falha!
+
+Para meios de testar a função de adição foram utilizados os seguintes valores 
+para cada respectivo parâmetro:
+
+Int128 *v1:
+
+long high ->  0x0 - 0x0 - 0x7FFFFFFFFFFFFFFF - 0x1                - 0xFF
+long low  ->  0x0 - 0x1 - 0x1                - 0x1                - 0x00
+
+Int128 *v2:
+
+long high ->  0x0 - 0x1 - 0x0                - 0x1                - 0x00
+long low  ->  0x0 - 0x0 - 0xFFFFFFFFFFFFFFFF - 0x7FFFFFFFFFFFFFFF - 0xFF
+
+
+
+>>>>>>>>>>>>>>>>>>>>>>>FUNÇÃO DE SUBTRAÇÃO (int128_sub)<<<<<<<<<<<<<<<<<<<<<<<
+
+Foram feitos diversos testes sobre a função e todos os testes obtiveram total
+sucesso, sem a ocorrência de falha!
+
+Para meios de testar a função de subtração foram utilizados os seguintes valores 
+para cada respectivo parâmetro:
+
+Int128 *v1:
+
+long high ->  0x0 - 0x0  - 0x2                - 0x1 - 0x0
+long low  ->  0x0 - 0x56 - 0xFFFFFFFFFFFFFFFF - 0x3 - 0x1
+
+Int128 *v2:
+
+long high ->  0x0 - 0x1  - 0x1                - 0x1 - 0x1
+long low  ->  0x0 - 0x0  - 0x2                - 0x5 - 0x0
+
+
+
+>>>>>>>>>>>>>>>>>>>>>>>FUNÇÃO DE SHIFT LEFT (int128_shl)<<<<<<<<<<<<<<<<<<<<<<
+
+Foram feitos diversos testes sobre a função e todos os testes obtiveram total
+sucesso, sem a ocorrência de falha!
+
+Para meios de testar a função de shift left foram utilizados os seguintes
+parâmetros (Int128 *v, int n):
+
+int n -> 8, 16, 24, 32, 40, 48, 56, 64, 128
+
+Int128 *v:
+
+long high -> 0x0 - 0x0                - 0xFF               - 0xFF
+long low ->  0x1 - 0xFFFFFFFFFFFFFFFF - 0x00FF00FF00FF00FF - 0xFF00FF00FF
+
+
+
+>>>>>>>>>>>>>>>>>>>>>>>FUNÇÃO DE SHIFT RIGHT (int128_shr)<<<<<<<<<<<<<<<<<<<<<
+
+Foram feitos diversos testes sobre a função e todos os testes obtiveram total
+sucesso, sem a ocorrência de falha!
+
+Para meios de testar a função de shift right foram utilizados os seguintes
+parâmetros (Int128 *v, int n):
+
+int n -> 8, 16, 24, 32, 40, 48, 56, 64, 128
+
+Int128 *v:
+
+long high -> 0x0 - 0x0 - 0xFF00FFFFFFFFFF00 - 0x00FFFFFFFFFFFF00 - 0x00FF 
+long low ->  0x1 - 0x0 - 0xFFFFFFFFFFFFFFFF - 0x00FFFFFFFFFFFFFF - 0xFFFF
+
+long high -> 0x7FFFFFFFFFFFFFFF - 0x2200000000000095
+long low ->  0x8000000000000000 - 0x0034567865467654
+
+
+
+>>>>>>>>>>>>>>>>>FUNÇÃO DE GRAVAR EM ARQUIVO (int128_write)<<<<<<<<<<<<<<<<<<<
+
+Foram feitos diversos testes sobre a função e todos os testes obtiveram total
+sucesso, sem a ocorrência de falha!
+
+Para meios de testar a função de write foram utilizados os seguintes valores 
+para cada respectivo parâmetro:
+
+Int128 *v:
+
+long high ->  0x0 - 0x0 - 0x7FFFFFFFFFFFFFFF - 0x1                - 0xFF
+long low  ->  0x0 - 0x1 - 0x1                - 0x1                - 0x00
+
+
+
+>>>>>>>>>>>>>>>>>FUNÇÃO DE SHIFT LÊ O ARQUIVO (int128_read)<<<<<<<<<<<<<<<<<<<
+
+Foram feitos diversos testes sobre a função e todos os testes obtiveram total
+sucesso, sem a ocorrência de falha!
+
+Para meios de testar a função de read foram utilizados os seguintes valores 
+para cada respectivo parâmetro:
+
+Int128 *v:
+
+long high ->  0x0 - 0x0 - 0x7FFFFFFFFFFFFFFF - 0x1                - 0xFF
+long low  ->  0x0 - 0x1 - 0x1                - 0x1                - 0x00
+
+******************************************************************************
