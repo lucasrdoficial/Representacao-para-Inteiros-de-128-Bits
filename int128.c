@@ -177,3 +177,88 @@ void int128_shr (Int128 *res, Int128 *v, int n)
 	res->low = v->low;  //Guarda então o resultado da operação em res->low
 	res->high = v->high; //Guarda então o resultado da operação em res->high
 }
+
+/* Grava um Int128 */
+int int128_write(Int128 *v, FILE *f)
+{
+    int c;
+    long h,l;
+	unsigned char bytes[8]; 
+	
+	printf("High: ");
+
+	for( c = 0 ; c < 8 ; c++ )
+	{
+		h = v->high;
+		h <<= (8*c);
+		h >>= 56;
+
+		bytes[c]=(unsigned char)h;
+
+		printf("%x - %d\n",bytes[c],c);
+	}
+
+	if(fwrite(bytes,1,8,f) != 8 ) 
+	{
+		return -1;
+	}
+
+	printf(" Low: ");
+
+	for(c = 0 ; c < 8 ; c++)
+	{
+		l=v->low;
+		l <<= (8*c);
+		l >>= 56;
+
+		bytes[c]=(unsigned char)l;
+
+		printf("%x - %d\n",bytes[c],c);
+	}
+
+	if(fwrite(bytes,1,8,f) != 8) 
+	{
+		return -1;
+	}
+
+	return 0;
+}
+
+
+/* Lê um Int128 */
+int int128_read(Int128 *v, FILE *f)
+{
+	int count;
+	long sum=0,t;
+	unsigned char bytes[8];
+	
+	if(fread(bytes,1,8,f) != 8) 
+	{
+		return -1;
+	}
+		
+	for ( count = 0 ; count < 8 ; count++)
+	{
+		t = bytes[count];
+		t <<= (8*(7-count));		
+		sum |= t;
+	}
+
+	v->high=sum;
+	printf("%lx - sum\n",sum);  
+	sum=0;
+	fread(bytes,1,8,f);
+		
+	for (count = 0 ; count < 8 ; count++)
+	{
+		t = bytes[count];
+		t <<= (8*(7-count));		
+		sum |= t;
+	}
+	
+	v->low=sum;
+	printf("%lx - sum\n",sum);  
+	printf("Fim\n");
+	return 0;	
+}
+
