@@ -60,3 +60,51 @@ void int128_add (Int128 *res, Int128 *v1, Int128 *v2)
 		}
 	}
 }
+
+/* Subtração */
+void int128_sub (Int128 *res, Int128 *v1, Int128 *v2)
+{
+	signed long a,b,c,d;
+	unsigned long k,i;
+	
+	a = v1->high; 
+	b = v2->high; 
+	c = v1->low ;
+	d = v2->low ;
+
+	if (a >= b) 
+	{
+		if (c >= d) 
+		{
+			res->high = v1->high + ~v2->high+1; 
+			res->low  = v1->low  + ~v2->low+1;
+		}
+		else //Se c < d
+		{
+			res->high = v1->high + ~v2->high; 
+			res->low  = v1->low  + ~v2->low+1;
+		}
+	}
+	else // Se a < b
+	{
+		if (c >= d) 
+		{
+			res->high = v1->high + ~v2->high+1; 
+			res->low  = v1->low  + ~v2->low+1;
+
+			k = 0xFFFFFFFFFFFFFFFF - res->low; //Verifica a diferença 
+
+			for ( i=0xFFFFFFFFFFFFFFFF ; i >= 0 ; i<<=4 ) //Verifica a partir de onde colocar os "F"
+			{ //Verifica a partir de onde colocar os "F"
+				if(i<k)break;
+			}
+
+			res->low |= i;
+		}
+		else //Se c < d
+		{
+			res->high = v1->high + ~v2->high;
+			res->low  = v1->low  + ~v2->low+1;
+		}
+	}
+}
